@@ -1,0 +1,22 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  namespace: gallifrey
+  name: romana
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: romana
+    spec:
+      serviceAccountName: romana
+      containers:
+      - name: romana
+        image: registry.stelo.intranet:5000/romana:01
+        command: 
+          - /opt/k8s-incluster 
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 9080
+          protocol: TCP
